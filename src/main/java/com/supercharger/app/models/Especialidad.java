@@ -3,11 +3,20 @@ package com.supercharger.app.models;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Especialidad {
+public enum Especialidad {
+
+    FRENOS(1,"FRENOS"),
+    ELECTRICIDAD(2,"ELECTRICIDAD"),
+    TREN_DELANTERO_AMORTIGUACION(3,"TREN DELANTERO Y AMORTIGUACION"),
+    ENCENDIDO_CARBURACION(4,"ENCENDIDO Y CARBURACION"),
+    CHAPA_PINTURA(5,"CHAPA Y PINTURA"),
+    MECANICA_GENERAL(6, "MECANICA EN GENERAL");
+
+    int numero;
+    String valor;
+
 }
