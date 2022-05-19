@@ -1,6 +1,6 @@
 package com.supercharger.app.controllers;
 
-import com.supercharger.app.models.TurnosTableModel;
+import com.supercharger.app.models.tablas.TurnosTableModel;
 import com.supercharger.app.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

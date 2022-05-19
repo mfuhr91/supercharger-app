@@ -1,4 +1,4 @@
-package com.supercharger.app.models;
+package com.supercharger.app.models.tablas;
 
 import javafx.scene.control.Button;
 import lombok.*;

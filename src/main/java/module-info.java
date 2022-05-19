@@ -14,4 +14,5 @@ module com.supercharger.app {
     exports com.supercharger.app.controllers;
     exports com.supercharger.app.models;
     opens com.supercharger.app.controllers to javafx.fxml;
+    exports com.supercharger.app.models.tablas;
 }
