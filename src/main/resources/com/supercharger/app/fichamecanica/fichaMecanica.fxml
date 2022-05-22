@@ -26,31 +26,31 @@
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Fecha Turno:"/>
-            <TextField editable="false"/>
+            <TextField fx:id="fechaTurno" editable="false"/>
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Cliente:"/>
-            <TextField editable="false"/>
+            <TextField fx:id="cliente" editable="false"/>
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Mecánico:"/>
-            <TextField editable="false"/>
+            <TextField fx:id="mecanico" editable="false"/>
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Actividad:"/>
-            <TextArea prefHeight="39.0" prefWidth="400.0"/>
+            <TextArea fx:id="actividad" prefHeight="39.0" prefWidth="400.0"/>
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Insumos:"/>
-            <TextArea prefHeight="41.0" prefWidth="400.0"/>
+            <TextArea fx:id="insumos" prefHeight="41.0" prefWidth="400.0"/>
         </children>
     </HBox>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">

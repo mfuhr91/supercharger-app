@@ -37,5 +37,30 @@ public class Utils {
             LOG.error("Failed to create the window: " + name + " error: ", e);
         }
     }
+
+    public static void newWindowsWithController(String name, String folder, String fileName, Object controller) {
+        try {
+            if (!Objects.equals(folder, "")) {
+                folder = folder + "/";
+            }
+
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(folder + fileName + ".fxml"));
+
+            fxmlLoader.setController(controller);
+
+            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Stage stage = new Stage();
+
+            stage.setTitle("SuperCharger APP - " + name);
+
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            LOG.error("Failed to create the window: " + name + " error: ", e);
+        }
+    }
+
+
 }
 

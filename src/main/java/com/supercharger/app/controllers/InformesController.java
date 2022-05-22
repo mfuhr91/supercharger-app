@@ -1,8 +1,8 @@
 package com.supercharger.app.controllers;
 
+import com.supercharger.app.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 public class InformesController {
 
@@ -10,12 +10,12 @@ public class InformesController {
     private Button volverButton;
 
     @FXML
-    private void onImprimirClick(){
+    private void onImprimirClick() {
     }
 
     @FXML
-    private void onVolverClick(){
-        Stage stage = (Stage) volverButton.getScene().getWindow();
-        stage.close();
+    private void onVolverClick() {
+        Utils.newWindow("", "", "main");
+        volverButton.getScene().getWindow().hide();
     }
 }

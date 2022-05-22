@@ -7,7 +7,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public  class TurnosTableModel {
+@ToString
+public class TurnosTableModel {
     private String nombreCliente;
     private String nombreMecanico;
     private String ingresado;

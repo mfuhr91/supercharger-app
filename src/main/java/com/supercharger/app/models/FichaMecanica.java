@@ -1,15 +1,15 @@
 package com.supercharger.app.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class FichaMecanica {
+
+    private Long id;
     private String actividad;
     private String insumos;
     private Constancia constancia;

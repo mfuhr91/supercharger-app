@@ -1,9 +1,6 @@
 package com.supercharger.app.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,10 +8,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Turno {
+
+    private Long id;
     private Mecanico mecanico;
     private LocalDateTime fecha;
     private Cliente cliente;
     private boolean disponible;
     private LocalDateTime asistencia;
+
 }

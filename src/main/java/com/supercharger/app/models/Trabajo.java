@@ -1,17 +1,15 @@
 package com.supercharger.app.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalTime;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Trabajo {
+
+    private Long id;
     private Especialidad especialidad;
-    private LocalTime tiempo;
+    private Long tiempo;
 }

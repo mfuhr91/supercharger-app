@@ -9,39 +9,38 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="428.0" prefWidth="565.0" spacing="20.0"
-      xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.supercharger.app.controllers.MecanicosController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="428.0" prefWidth="565.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supercharger.app.controllers.MecanicosController">
     <padding>
-        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
     </padding>
     <Label fx:id="title" contentDisplay="CENTER" text="Mecánicos">
         <VBox.margin>
-            <Insets bottom="10.0"/>
+            <Insets bottom="10.0" />
         </VBox.margin>
         <font>
-            <Font size="20.0"/>
+            <Font size="20.0" />
         </font>
     </Label>
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Button fx:id="nuevoButton" onAction="#onNuevoMecanicoClick" prefWidth="110.0" styleClass="" text="Nuevo Mecánico">
                 <HBox.margin>
-                    <Insets left="374.0"/>
+                    <Insets left="374.0" />
                 </HBox.margin>
             </Button>
         </children>
     </HBox>
-    <TableView prefHeight="200.0" prefWidth="518.0">
+    <TableView fx:id="table" prefHeight="200.0" prefWidth="518.0">
         <columns>
-            <TableColumn prefWidth="90.0" text="Nombre"/>
-            <TableColumn prefWidth="90.0" text="Especialidad"/>
-            <TableColumn prefWidth="82.0" text="Horarios"/>
+            <TableColumn fx:id="id" prefWidth="0" text="id" visible="false"/>
+            <TableColumn fx:id="nombre" prefWidth="157.0" text="Nombre" />
+            <TableColumn fx:id="especialidad" prefWidth="200.0" text="Especialidad" />
+            <TableColumn fx:id="horarios" minWidth="0.0" prefWidth="125.0" text="Horarios" />
         </columns>
     </TableView>
     <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver">
         <VBox.margin>
-            <Insets/>
+            <Insets />
         </VBox.margin>
     </Button>
 </VBox>

@@ -1,16 +1,35 @@
 package com.supercharger.app.controllers;
 
+import com.supercharger.app.dataholders.TurnoHolder;
+import com.supercharger.app.models.Mecanico;
+import com.supercharger.app.models.tablas.MecanicosTableModel;
+import com.supercharger.app.services.MecanicosService;
 import com.supercharger.app.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MecanicosController implements Initializable {
+
+    MecanicosService mecanicosServices = new MecanicosService();
+
+    @FXML
+    private TableColumn<MecanicosTableModel, Long> id;
+    @FXML
+    private TableColumn<MecanicosTableModel, String> nombre;
+    @FXML
+    private TableColumn<MecanicosTableModel, String> especialidad;
+    @FXML
+    private TableColumn<MecanicosTableModel, String> horarios;
+    @FXML
+    private TableView<MecanicosTableModel> table;
 
     @FXML
     private Button volverButton;
@@ -25,18 +44,18 @@ public class MecanicosController implements Initializable {
     public static Button publicNuevoButton;
 
     @FXML
-    private void onNuevoMecanicoClick(){
-        Utils.newWindow("Nuevo Mecánico","mecanicos","mecanicosForm");
+    private void onNuevoMecanicoClick() {
+        Utils.newWindow("Nuevo Mecánico", "mecanicos", "mecanicosForm");
     }
 
     @FXML
-    private void onGuardarClick(){
+    private void onGuardarClick() {
     }
 
     @FXML
-    private void onVolverClick(){
-        Stage stage = (Stage) volverButton.getScene().getWindow();
-        stage.close();
+    private void onVolverClick() {
+        Utils.newWindow("", "", "main");
+        volverButton.getScene().getWindow().hide();
     }
 
 
@@ -44,5 +63,34 @@ public class MecanicosController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         publicTitle = title;
         publicNuevoButton = nuevoButton;
+
+        this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.especialidad.setCellValueFactory(new PropertyValueFactory<>("especialidad"));
+        this.horarios.setCellValueFactory(new PropertyValueFactory<>("horarios"));
+
+        List<MecanicosTableModel> mtmList = mecanicosServices.findAllMecanicos();
+        this.table.getItems().setAll(mtmList);
+
+        table.setRowFactory(tr -> {
+            TableRow<MecanicosTableModel> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+                if (!row.isEmpty() && e.getButton() == MouseButton.PRIMARY
+                        && e.getClickCount() == 2) {
+
+                    MecanicosTableModel clickedRow = row.getItem();
+                    System.out.println(clickedRow.toString());
+
+                    TurnoHolder turnoHolder = TurnoHolder.getInstance();
+                    Mecanico mecanico = new Mecanico();
+                    mecanico.setId(clickedRow.getId());
+                    mecanico.setNombre(clickedRow.getNombre());
+                    turnoHolder.getTurno().setMecanico(mecanico);
+                    ((Node) (e.getSource())).getScene().getWindow().hide();
+                    Utils.newWindow("Nuevo Turno", "turnos", "turnosForm");
+                }
+            });
+            return row;
+        });
     }
 }

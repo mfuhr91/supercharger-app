@@ -1,19 +1,17 @@
-package com.supercharger.app.models;
+package com.supercharger.app.models.tablas;
 
 import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
-public class Cliente {
-
+public class ClientesTableModel {
     private Long id;
     private String nombre;
     private String apellido;
-    private String tipoDoc;
     private String nroDoc;
     private int telefono;
-    private Vehiculo vehiculo;
+    private String vehiculo;
 }
