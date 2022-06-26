@@ -36,7 +36,7 @@ public class ClientesService implements IGenericService<Cliente> {
 
     @Override
     public List<Cliente> findAll() {
-       return null;
+        return null;
     }
 
     @Override
@@ -45,13 +45,13 @@ public class ClientesService implements IGenericService<Cliente> {
     }
 
     @Override
-    public void save(Cliente entity) {
-
+    public Cliente save(Cliente entity) {
+        return null;
     }
 
     @Override
-    public void update(Cliente entity) {
-
+    public Cliente update(Cliente entity) {
+        return null;
     }
 
     @Override

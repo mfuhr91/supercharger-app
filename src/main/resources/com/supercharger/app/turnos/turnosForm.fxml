@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,65 +12,62 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="428.0" prefWidth="565.0" spacing="20.0"
-      xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.supercharger.app.controllers.TurnosFormController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="428.0" prefWidth="565.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supercharger.app.controllers.TurnosFormController">
     <padding>
-        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
     </padding>
     <Label contentDisplay="CENTER" text="Nuevo Turno">
         <VBox.margin>
-            <Insets bottom="10.0"/>
+            <Insets bottom="10.0" />
         </VBox.margin>
         <font>
-            <Font size="20.0"/>
+            <Font size="20.0" />
         </font>
     </Label>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
-            <Label prefHeight="26.0" prefWidth="70.0" text="Cliente:"/>
-            <TextField fx:id="cliente" promptText="Cliente"/>
-            <Button fx:id="seleccionarClienteButton" alignment="TOP_LEFT" onAction="#onSeleccionarClienteClick"
-                    prefHeight="26.0" prefWidth="145.0" styleClass="" text="Seleccionar cliente">
+            <Label prefHeight="26.0" prefWidth="70.0" text="Cliente:" />
+            <TextField fx:id="cliente" editable="false" promptText="Cliente" />
+            <Button fx:id="seleccionarClienteButton" alignment="TOP_LEFT" onAction="#onSeleccionarClienteClick" prefHeight="26.0" prefWidth="145.0" styleClass="" text="Seleccionar cliente">
                 <HBox.margin>
-                    <Insets/>
+                    <Insets />
                 </HBox.margin>
             </Button>
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
-            <Label prefHeight="26.0" prefWidth="70.0" text="Mecánico:"/>
-            <TextField fx:id="mecanico" promptText="Mecánico"/>
-            <Button fx:id="seleccionarMecanicoButton" alignment="TOP_LEFT" onAction="#onSeleccionarMecanicoClick"
-                    prefHeight="26.0" prefWidth="145.0" styleClass="" text="Seleccionar mecánico">
+            <Label prefHeight="26.0" prefWidth="70.0" text="Mecánico:" />
+            <TextField fx:id="mecanico" editable="false" promptText="Mecánico" />
+            <Button fx:id="seleccionarMecanicoButton" alignment="TOP_LEFT" onAction="#onSeleccionarMecanicoClick" prefHeight="26.0" prefWidth="145.0" styleClass="" text="Seleccionar mecánico">
                 <HBox.margin>
-                    <Insets/>
+                    <Insets />
                 </HBox.margin>
             </Button>
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
-            <Label prefHeight="26.0" prefWidth="70.0" text="Fecha:"/>
-            <TextField fx:id="fecha" editable="false" promptText="Fecha"/>
+            <Label prefHeight="26.0" prefWidth="70.0" text="Fecha:" />
+         <DatePicker fx:id="fechaTurnos" prefHeight="26.0" prefWidth="170.0" promptText="D/M/AAAA" />
         </children>
     </HBox>
-    <TableView prefHeight="108.0" prefWidth="486.0">
+    <TableView fx:id="table" prefHeight="108.0" prefWidth="486.0">
         <columns>
-            <TableColumn prefWidth="242.0" text="Horario"/>
-            <TableColumn prefWidth="241.0" text="Disponible"/>
+            <TableColumn fx:id="id" prefWidth="0" text="id" visible="false"/>
+            <TableColumn fx:id="horario" prefWidth="242.0" text="Horario" />
+            <TableColumn fx:id="disponible" prefWidth="241.0" text="Disponible" />
         </columns>
-        <cursor>
-            <Cursor fx:constant="HAND"/>
-        </cursor>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </TableView>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
         <children>
-            <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver"/>
+            <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />
             <Button alignment="CENTER" onAction="#onGuardarClick" prefWidth="70.0" styleClass="" text="Guardar">
                 <HBox.margin>
-                    <Insets left="20.0"/>
+                    <Insets left="20.0" />
                 </HBox.margin>
             </Button>
         </children>

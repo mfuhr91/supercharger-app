@@ -30,11 +30,10 @@ public class MecanicosDao implements IGenericDao<Mecanico> {
         try {
             String prepSt = "SELECT * FROM mecanicos;";
             PreparedStatement statement = this.db.getConnection().prepareStatement(prepSt);
-            statement.setMaxRows(1);
 
             ResultSet res = statement.executeQuery();
             while (res.next()) {
-                Mecanico mecanico = setMecanico(res);
+                Mecanico mecanico = getMecanico(res);
 
                 list.add(mecanico);
             }
@@ -59,7 +58,7 @@ public class MecanicosDao implements IGenericDao<Mecanico> {
             ResultSet res = statement.executeQuery();
             res.next();
 
-            mecanico = setMecanico(res);
+            mecanico = getMecanico(res);
 
             statement.close();
         } catch (SQLException e) {
@@ -84,7 +83,7 @@ public class MecanicosDao implements IGenericDao<Mecanico> {
 
     }
 
-    private Mecanico setMecanico(ResultSet res) {
+    private Mecanico getMecanico(ResultSet res) {
         Mecanico mecanico = new Mecanico();
         try {
             Especialidad esp = Especialidad.getByNombre(res.getString(Constantes.ESPECIALIDAD));

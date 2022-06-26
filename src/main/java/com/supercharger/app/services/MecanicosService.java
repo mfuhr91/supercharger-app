@@ -44,13 +44,13 @@ public class MecanicosService implements IGenericService<Mecanico> {
     }
 
     @Override
-    public void save(Mecanico entity) {
-
+    public Mecanico save(Mecanico entity) {
+        return null;
     }
 
     @Override
-    public void update(Mecanico entity) {
-
+    public Mecanico update(Mecanico entity) {
+        return null;
     }
 
     @Override

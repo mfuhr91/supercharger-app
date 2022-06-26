@@ -8,14 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TurnosTableModel {
-
-    private Long id;
-    private String nombreCliente;
+public class AgendasTableModel {
     private String nombreMecanico;
-    private String ingresado;
-    private String vehiculo;
-    private Button opciones;
-    private String disponible;
     private String horario;
 }

@@ -9,6 +9,7 @@ import com.supercharger.app.utils.Constantes;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +40,29 @@ public class TurnosDao implements IGenericDao<Turno> {
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {
-                Turno turno = new Turno();
+                Turno turno = getTurno(res);
 
-                Cliente cliente = this.clientesDao.findOne(res.getLong(Constantes.CLIENTE_ID));
-                Mecanico mecanico = this.mecanicosDao.findOne(res.getLong(Constantes.MECANICO_ID));
+                list.add(turno);
+            }
 
-                turno.setId(res.getLong(Constantes.ID));
-                turno.setMecanico(mecanico);
-                turno.setFecha(res.getDate(Constantes.FECHA).toLocalDate().atStartOfDay());
-                turno.setCliente(cliente);
-                turno.setDisponible(res.getBoolean(Constantes.DISPONIBLE));
-                if (res.getDate(Constantes.ASISTENCIA) != null) {
-                    LocalTime localTime = res.getTime(Constantes.ASISTENCIA).toLocalTime();
-                    turno.setAsistencia(res.getDate(Constantes.ASISTENCIA).toLocalDate().atTime(localTime));
-                }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<Turno> findAllNoDisponibleByFecha(String fecha) {
+
+        List<Turno> list = new ArrayList<>();
+        try {
+            String prepSt = "SELECT * FROM turnos WHERE disponible = false AND fecha like '" + fecha + "%';";
+            PreparedStatement statement = this.db.getConnection().prepareStatement(prepSt);
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                Turno turno = getTurno(res);
                 list.add(turno);
             }
 
@@ -68,25 +78,33 @@ public class TurnosDao implements IGenericDao<Turno> {
 
         List<Turno> list = new ArrayList<>();
         try {
-            String prepSt = "SELECT * FROM turnos WHERE disponible = false AND fecha like '" + fecha + "%';";
+            String prepSt = "SELECT * FROM turnos WHERE fecha like '" + fecha + "%';";
             PreparedStatement statement = this.db.getConnection().prepareStatement(prepSt);
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {
-                Turno turno = new Turno();
+                Turno turno = getTurno(res);
+                list.add(turno);
+            }
 
-                Cliente cliente = this.clientesDao.findOne(res.getLong(Constantes.CLIENTE_ID));
-                Mecanico mecanico = this.mecanicosDao.findOne(res.getLong(Constantes.MECANICO_ID));
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-                turno.setId(res.getLong(Constantes.ID));
-                turno.setMecanico(mecanico);
-                turno.setFecha(res.getDate(Constantes.FECHA).toLocalDate().atStartOfDay());
-                turno.setCliente(cliente);
-                turno.setDisponible(res.getBoolean(Constantes.DISPONIBLE));
-                if (res.getDate(Constantes.ASISTENCIA) != null) {
-                    LocalTime localTime = res.getTime(Constantes.ASISTENCIA).toLocalTime();
-                    turno.setAsistencia(res.getDate(Constantes.ASISTENCIA).toLocalDate().atTime(localTime));
-                }
+        return list;
+    }
+
+    public List<Turno> findAllByFechaByMecanico(String fecha, Mecanico mecanico) {
+
+        List<Turno> list = new ArrayList<>();
+        try {
+            String prepSt = "SELECT * FROM turnos WHERE disponible=true AND mecanico_id=" + mecanico.getId() +" AND fecha like '" + fecha + "%';";
+            PreparedStatement statement = this.db.getConnection().prepareStatement(prepSt);
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                Turno turno = getTurno(res);
                 list.add(turno);
             }
 
@@ -101,7 +119,7 @@ public class TurnosDao implements IGenericDao<Turno> {
     @Override
     public Turno findOne(Long id) {
 
-        Turno turno = new Turno();
+        Turno turno = null;
         try {
             String prepSt = "SELECT * FROM turnos WHERE id=" + id + ";";
             PreparedStatement statement = this.db.getConnection().prepareStatement(prepSt);
@@ -110,15 +128,7 @@ public class TurnosDao implements IGenericDao<Turno> {
             ResultSet res = statement.executeQuery();
             res.next();
 
-            Cliente cliente = this.clientesDao.findOne(res.getLong(Constantes.CLIENTE_ID));
-            Mecanico mecanico = this.mecanicosDao.findOne(res.getLong(Constantes.MECANICO_ID));
-
-            turno.setId(res.getLong(Constantes.ID));
-            turno.setMecanico(mecanico);
-            turno.setFecha(res.getDate(Constantes.FECHA).toLocalDate().atStartOfDay());
-            turno.setCliente(cliente);
-            turno.setDisponible(res.getBoolean(Constantes.DISPONIBLE));
-            turno.setAsistencia(res.getDate(Constantes.ASISTENCIA).toLocalDate().atStartOfDay());
+            turno = getTurno(res);
 
             statement.close();
         } catch (SQLException e) {
@@ -128,8 +138,33 @@ public class TurnosDao implements IGenericDao<Turno> {
     }
 
     @Override
-    public Turno save(Turno entity) {
-        return null;
+    public Turno save(Turno turno) {
+
+        try {
+            String ps = "INSERT INTO supercharger_db.turnos (mecanico_id, fecha, cliente_id, disponible, asistencia) " +
+                    "VALUES (?, ?, null, DEFAULT, null);";
+
+
+            PreparedStatement statement = this.db.getConnection().prepareStatement(ps, Statement.RETURN_GENERATED_KEYS);
+            /*statement.setMaxRows(1);*/
+
+            statement.setLong(1, turno.getMecanico().getId());
+
+            String fecha = turno.getFecha().toLocalDate().toString() + " " + turno.getFecha().toLocalTime().toString();
+            statement.setString(2, fecha);
+
+            statement.execute();
+
+            ResultSet res = statement.getGeneratedKeys();
+            res.next();
+            turno.setId(res.getLong(1));
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return turno;
     }
 
     @Override
@@ -183,5 +218,30 @@ public class TurnosDao implements IGenericDao<Turno> {
     @Override
     public void delete(Turno entity) {
 
+    }
+
+    private Turno getTurno(ResultSet res) {
+
+        Turno turno = new Turno();
+        try {
+
+            Cliente cliente = this.clientesDao.findOne(res.getLong(Constantes.CLIENTE_ID));
+            Mecanico mecanico = this.mecanicosDao.findOne(res.getLong(Constantes.MECANICO_ID));
+
+            turno.setId(res.getLong(Constantes.ID));
+            turno.setMecanico(mecanico);
+            LocalTime localTime = res.getTime(Constantes.FECHA).toLocalTime();
+            turno.setFecha(res.getDate(Constantes.FECHA).toLocalDate().atTime(localTime));
+            turno.setCliente(cliente);
+            turno.setDisponible(res.getBoolean(Constantes.DISPONIBLE));
+            if (res.getDate(Constantes.ASISTENCIA) != null) {
+                localTime = res.getTime(Constantes.ASISTENCIA).toLocalTime();
+                turno.setAsistencia(res.getDate(Constantes.ASISTENCIA).toLocalDate().atTime(localTime));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return turno;
     }
 }

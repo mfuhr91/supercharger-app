@@ -8,9 +8,9 @@ public interface IGenericService<T> {
 
     T findOne(final Long id);
 
-    void save(final T entity);
+    T save(final T entity);
 
-    void update(final T entity);
+    T update(final T entity);
 
     public void delete(final T entity);
 

@@ -4,7 +4,9 @@ import com.supercharger.app.dao.TurnosDao;
 import com.supercharger.app.dataholders.TurnoHolder;
 import com.supercharger.app.models.Cliente;
 import com.supercharger.app.models.FichaMecanica;
+import com.supercharger.app.models.Mecanico;
 import com.supercharger.app.models.Turno;
+import com.supercharger.app.models.tablas.AgendasTableModel;
 import com.supercharger.app.models.tablas.TurnosTableModel;
 import com.supercharger.app.utils.Utils;
 import javafx.scene.Node;
@@ -37,7 +39,7 @@ public class TurnosService implements IGenericService<Turno> {
         List<Turno> list = turnosDao.findAll();
         List<TurnosTableModel> ttmList = new ArrayList<>();
 
-        for (Turno turno : list ) {
+        for (Turno turno : list) {
 
             this.btnIngresar = new Button();
             btnIngresar.setText("Ingresar");
@@ -49,12 +51,10 @@ public class TurnosService implements IGenericService<Turno> {
             btnFicha.setId("btnFicha-" + turno.getId());
 
             btnFicha.setOnAction(e -> {
-                String btnId =  ((Button)e.getSource()).getId();
+                String btnId = ((Button) e.getSource()).getId();
                 String[] arrBtnId = btnId.split("-");
 
                 System.out.println(btnId);
-
-
 
 
                 Turno turnoSelect = new Turno();
@@ -64,11 +64,11 @@ public class TurnosService implements IGenericService<Turno> {
                 turnoHolder.setTurno(turnoSelect);
 
 
-                Utils.newWindow("Ficha Mecánica" + turno.getId(),"fichamecanica","fichamecanica");
+                Utils.newWindow("Ficha Mecánica" + turno.getId(), "fichamecanica", "fichamecanica");
             });
 
             btnIngresar.setOnAction(e -> {
-                String btnId =  ((Button)e.getSource()).getId();
+                String btnId = ((Button) e.getSource()).getId();
 
                 String[] arrBtnId = btnId.split("-");
 
@@ -86,8 +86,8 @@ public class TurnosService implements IGenericService<Turno> {
 
                 this.fichasService.save(ficha);
 
-                ((Node)(e.getSource())).getScene().getWindow().hide();
-                Utils.newWindow("Turnos","turnos","turnos");
+                ((Node) (e.getSource())).getScene().getWindow().hide();
+                Utils.newWindow("Turnos", "turnos", "turnos");
             });
 
             Cliente cliente = turno.getCliente();
@@ -97,24 +97,25 @@ public class TurnosService implements IGenericService<Turno> {
             String datosVehiculo;
 
             datosCliente = cliente != null ? cliente.getNombre() + " " + cliente.getApellido() : "";
-            datosVehiculo = ( cliente != null && cliente.getVehiculo() != null ) ? cliente.getVehiculo().getMarca() + " - " + cliente.getVehiculo().getModelo() : "";
+            datosVehiculo = (cliente != null && cliente.getVehiculo() != null) ? cliente.getVehiculo().getMarca() + " - " + cliente.getVehiculo().getModelo() : "";
 
-            TurnosTableModel ttm =
-                    new TurnosTableModel(datosCliente,
-                            turno.getMecanico().getNombre(),
-                            ingresado ? "SI" : "NO",
-                            datosVehiculo ,
-                            ingresado ? btnFicha : btnIngresar);
+            TurnosTableModel ttm = new TurnosTableModel();
+            ttm.setNombreCliente(datosCliente);
+            ttm.setNombreMecanico(turno.getMecanico().getNombre());
+            ttm.setIngresado(ingresado ? "SI" : "NO");
+            ttm.setVehiculo(datosVehiculo);
+            ttm.setOpciones(ingresado ? btnFicha : btnIngresar);
+
             ttmList.add(ttm);
         }
         return ttmList;
     }
 
     public List<TurnosTableModel> getAllTurnosByFecha(String fecha) {
-        List<Turno> list = turnosDao.findAllByFecha(fecha);
+        List<Turno> list = turnosDao.findAllNoDisponibleByFecha(fecha);
         List<TurnosTableModel> ttmList = new ArrayList<>();
 
-        for (Turno turno : list ) {
+        for (Turno turno : list) {
 
             this.btnIngresar = new Button();
             btnIngresar.setText("Ingresar");
@@ -126,12 +127,10 @@ public class TurnosService implements IGenericService<Turno> {
             btnFicha.setId("btnFicha-" + turno.getId());
 
             btnFicha.setOnAction(e -> {
-                String btnId =  ((Button)e.getSource()).getId();
+                String btnId = ((Button) e.getSource()).getId();
                 String[] arrBtnId = btnId.split("-");
 
                 System.out.println(btnId);
-
-
 
 
                 Turno turnoSelect = new Turno();
@@ -140,12 +139,12 @@ public class TurnosService implements IGenericService<Turno> {
                 TurnoHolder turnoHolder = TurnoHolder.getInstance();
                 turnoHolder.setTurno(turnoSelect);
 
-                ((Node)(e.getSource())).getScene().getWindow().hide();
-                Utils.newWindow("Ficha Mecánica","fichamecanica","fichamecanica");
+                ((Node) (e.getSource())).getScene().getWindow().hide();
+                Utils.newWindow("Ficha Mecánica", "fichamecanica", "fichamecanica");
             });
 
             btnIngresar.setOnAction(e -> {
-                String btnId =  ((Button)e.getSource()).getId();
+                String btnId = ((Button) e.getSource()).getId();
 
                 String[] arrBtnId = btnId.split("-");
 
@@ -163,8 +162,8 @@ public class TurnosService implements IGenericService<Turno> {
 
                 this.fichasService.save(ficha);
 
-                ((Node)(e.getSource())).getScene().getWindow().hide();
-                Utils.newWindow("Turnos","turnos","turnos");
+                ((Node) (e.getSource())).getScene().getWindow().hide();
+                Utils.newWindow("Turnos", "turnos", "turnos");
             });
 
             Cliente cliente = turno.getCliente();
@@ -174,23 +173,37 @@ public class TurnosService implements IGenericService<Turno> {
             String datosVehiculo;
 
             datosCliente = cliente != null ? cliente.getNombre() + " " + cliente.getApellido() : "";
-            datosVehiculo = ( cliente != null && cliente.getVehiculo() != null ) ? cliente.getVehiculo().getMarca() + " - " + cliente.getVehiculo().getModelo() : "";
+            datosVehiculo = (cliente != null && cliente.getVehiculo() != null) ? cliente.getVehiculo().getMarca() + " - " + cliente.getVehiculo().getModelo() : "";
 
-            TurnosTableModel ttm =
-                    new TurnosTableModel(datosCliente,
-                            turno.getMecanico().getNombre(),
-                            ingresado ? "SI" : "NO",
-                            datosVehiculo ,
-                            ingresado ? btnFicha : btnIngresar);
+            TurnosTableModel ttm = new TurnosTableModel();
+            ttm.setNombreCliente(datosCliente);
+            ttm.setNombreMecanico(turno.getMecanico().getNombre());
+            ttm.setIngresado(ingresado ? "SI" : "NO");
+            ttm.setVehiculo(datosVehiculo);
+            ttm.setOpciones(ingresado ? btnFicha : btnIngresar);
+
             ttmList.add(ttm);
         }
         return ttmList;
     }
 
+    public List<AgendasTableModel> getAllAgendasByFecha(String fecha) {
+        List<Turno> list = turnosDao.findAllByFecha(fecha);
+        List<AgendasTableModel> atmList = new ArrayList<>();
 
+        for (Turno turno : list) {
+            String horario = turno.getFecha().toLocalTime().toString();
+            AgendasTableModel atm =
+                    new AgendasTableModel(turno.getMecanico().getNombre(), horario);
+            atmList.add(atm);
+        }
+        return atmList;
+    }
 
     @Override
-    public List<Turno> findAll() { return null; }
+    public List<Turno> findAll() {
+        return null;
+    }
 
 
     @Override
@@ -199,17 +212,34 @@ public class TurnosService implements IGenericService<Turno> {
     }
 
     @Override
-    public void save(Turno turno) {
-
+    public Turno save(Turno turno) {
+        return this.turnosDao.save(turno);
     }
 
     @Override
-    public void update(Turno turno) {
-        this.turnosDao.update(turno);
+    public Turno update(Turno turno) {
+        return this.turnosDao.update(turno);
     }
 
     @Override
     public void delete(Turno entity) {
 
+    }
+
+    public List<TurnosTableModel> getAllTurnosByFechaByMecanico(String fecha, Mecanico mecanico) {
+        List<Turno> list = turnosDao.findAllByFechaByMecanico(fecha, mecanico);
+        List<TurnosTableModel> ttmList = new ArrayList<>();
+
+        for (Turno turno : list) {
+
+
+            TurnosTableModel ttm = new TurnosTableModel();
+            ttm.setId(turno.getId());
+            ttm.setHorario(turno.getFecha().toLocalTime().toString());
+            ttm.setDisponible(turno.isDisponible() ? "SI" : "NO");
+
+            ttmList.add(ttm);
+        }
+        return ttmList;
     }
 }

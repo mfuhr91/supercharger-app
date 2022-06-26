@@ -3,10 +3,12 @@ package com.supercharger.app.dataholders;
 import com.supercharger.app.models.Turno;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
 @Setter
+@ToString
 public class TurnoHolder {
 
     private Turno turno;

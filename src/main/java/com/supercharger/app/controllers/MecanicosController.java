@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,6 +43,7 @@ public class MecanicosController implements Initializable {
 
     public static Label publicTitle;
     public static Button publicNuevoButton;
+    public static boolean fromTurnos;
 
     @FXML
     private void onNuevoMecanicoClick() {
@@ -81,13 +83,22 @@ public class MecanicosController implements Initializable {
                     MecanicosTableModel clickedRow = row.getItem();
                     System.out.println(clickedRow.toString());
 
+                    String[] horarios = clickedRow.getHorarios().split(" - ");
+
                     TurnoHolder turnoHolder = TurnoHolder.getInstance();
                     Mecanico mecanico = new Mecanico();
                     mecanico.setId(clickedRow.getId());
                     mecanico.setNombre(clickedRow.getNombre());
+                    mecanico.setHoraEntrada(LocalTime.parse(horarios[0]));
+                    mecanico.setHoraSalida(LocalTime.parse(horarios[1]));
                     turnoHolder.getTurno().setMecanico(mecanico);
                     ((Node) (e.getSource())).getScene().getWindow().hide();
-                    Utils.newWindow("Nuevo Turno", "turnos", "turnosForm");
+                    if (fromTurnos) {
+                        Utils.newWindow("Nuevo Turno", "turnos", "turnosForm");
+                    } else {
+                        Utils.newWindow("Nueva Agenda", "agendas", "agendasForm");
+                    }
+                    fromTurnos = false;
                 }
             });
             return row;

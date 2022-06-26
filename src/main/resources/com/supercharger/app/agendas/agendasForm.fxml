@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" fillWidth="false" prefHeight="428.0" prefWidth="565.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supercharger.app.controllers.AgendasFormController">
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+    </padding>
+    <Label contentDisplay="CENTER" text="Nueva Agenda">
+        <VBox.margin>
+            <Insets bottom="10.0" />
+        </VBox.margin>
+        <font>
+            <Font size="20.0" />
+        </font>
+    </Label>
+    <HBox prefHeight="1.0" prefWidth="485.0">
+        <children>
+            <Label prefHeight="26.0" prefWidth="90.0" text="Mecánico:" />
+            <TextField fx:id="mecanico" promptText="Mecánico" />
+            <Button fx:id="seleccionarMecanicoButton" alignment="TOP_LEFT" onAction="#onSeleccionarMecanicoClick" prefHeight="26.0" prefWidth="145.0" styleClass="" text="Seleccionar mecánico">
+                <HBox.margin>
+                    <Insets />
+                </HBox.margin>
+            </Button>
+        </children>
+    </HBox>
+    <HBox prefHeight="1.0" prefWidth="485.0">
+        <children>
+            <Label prefHeight="26.0" prefWidth="90.0" text="Fecha desde:" />
+         <DatePicker fx:id="fechaDesde" prefHeight="26.0" prefWidth="170.0" promptText="D/M/AAAA" />
+        </children>
+    </HBox>
+    <HBox prefHeight="1.0" prefWidth="485.0">
+        <children>
+            <Label prefHeight="26.0" prefWidth="90.0" text="Fecha hasta:" />
+            <DatePicker fx:id="fechaHasta" prefHeight="26.0" prefWidth="170.0" promptText="D/M/AAAA" />
+        </children>
+    </HBox>
+    <HBox prefHeight="26.0" prefWidth="483.0">
+        <children>
+            <Label prefHeight="25.0" prefWidth="90.0" text="Intervalo:" />
+            <TextField fx:id="tiempoTurno" prefHeight="26.0" prefWidth="87.0" promptText="HH:MM" />
+        </children>
+    </HBox>
+    <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
+        <children>
+            <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />
+            <Button alignment="CENTER" onAction="#onGuardarClick" prefWidth="70.0" styleClass="" text="Guardar">
+                <HBox.margin>
+                    <Insets left="20.0" />
+                </HBox.margin>
+            </Button>
+        </children>
+    </HBox>
+</VBox>

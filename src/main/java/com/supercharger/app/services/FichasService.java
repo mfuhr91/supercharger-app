@@ -28,13 +28,13 @@ public class FichasService implements IGenericService<FichaMecanica> {
     }
 
     @Override
-    public void save(FichaMecanica ficha) {
-        this.fichasDao.save(ficha);
+    public FichaMecanica save(FichaMecanica ficha) {
+        return this.fichasDao.save(ficha);
     }
 
     @Override
-    public void update(FichaMecanica ficha) {
-
+    public FichaMecanica update(FichaMecanica ficha) {
+        return null;
     }
 
     @Override
