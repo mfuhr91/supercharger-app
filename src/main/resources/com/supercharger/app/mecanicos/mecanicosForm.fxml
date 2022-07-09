@@ -24,25 +24,25 @@
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="95.0" text="Nombre:" />
-            <TextField prefHeight="26.0" prefWidth="185.0" promptText="Nombre" />
+            <TextField fx:id="nombreForm" prefHeight="26.0" prefWidth="185.0" promptText="Nombre" />
         </children>
     </HBox>
    <HBox prefHeight="1.0" prefWidth="485.0">
       <children>
          <Label prefHeight="26.0" prefWidth="95.0" text="Especialidad:" />
-         <ComboBox prefHeight="26.0" prefWidth="185.0" promptText="Seleccionar especialidad" />
+         <ComboBox fx:id="espComboBox" prefHeight="26.0" prefWidth="185.0" promptText="Seleccionar especialidad" />
       </children>
    </HBox>
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="95.0" text="Horario entrada:" />
-            <TextField prefHeight="26.0" prefWidth="87.0" promptText="HH:MM" />
+            <TextField fx:id="horarioEntrada" prefHeight="26.0" prefWidth="87.0" promptText="HH:MM" />
         </children>
     </HBox>
    <HBox prefHeight="26.0" prefWidth="483.0">
       <children>
          <Label prefHeight="25.0" prefWidth="95.0" text="Horario salida:" />
-         <TextField prefHeight="26.0" prefWidth="87.0" promptText="HH:MM" />
+         <TextField fx:id="horarioSalida" prefHeight="26.0" prefWidth="87.0" promptText="HH:MM" />
       </children>
    </HBox>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">

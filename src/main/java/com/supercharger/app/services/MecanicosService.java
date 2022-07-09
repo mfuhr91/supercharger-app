@@ -44,13 +44,13 @@ public class MecanicosService implements IGenericService<Mecanico> {
     }
 
     @Override
-    public Mecanico save(Mecanico entity) {
-        return null;
+    public void save(Mecanico mecanico) {
+        this.mecanicosDao.save(mecanico);
     }
 
     @Override
-    public Mecanico update(Mecanico entity) {
-        return null;
+    public void update(Mecanico entity) {
+
     }
 
     @Override

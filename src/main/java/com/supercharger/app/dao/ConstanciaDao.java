@@ -2,11 +2,7 @@ package com.supercharger.app.dao;
 
 import com.supercharger.app.database.DBConnection;
 import com.supercharger.app.models.Constancia;
-import com.supercharger.app.utils.Constantes;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class ConstanciaDao implements IGenericDao<Constancia> {
@@ -14,48 +10,34 @@ public class ConstanciaDao implements IGenericDao<Constancia> {
     DBConnection db;
 
     public ConstanciaDao() {
-        try {
-            this.db = DBConnection.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.db = DBConnection.getInstance();
     }
 
     @Override
     public List<Constancia> findAll() {
-        return null;
+        String statement = "FROM Constancia";
+        return (List<Constancia>) db.getManager().createQuery(statement).getResultList();
+
     }
 
     @Override
     public Constancia findOne(Long id) {
-        Constancia constancia = new Constancia();
-        try {
-            String prepSt = "SELECT * FROM constancias WHERE id=" + id + ";";
-            PreparedStatement statement = this.db.getConnection().prepareStatement(prepSt);
-            statement.setMaxRows(1);
-
-            ResultSet res = statement.executeQuery();
-            res.next();
-            constancia.setId(res.getLong(Constantes.ID));
-            constancia.setConformidad(res.getBoolean(Constantes.CONFORMIDAD));
-            constancia.setMotivo(res.getString(Constantes.MOTIVO));
-
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return constancia;
+        String statement = "FROM Constancia WHERE id=" + id;
+        return (Constancia) db.getManager().createQuery(statement).getSingleResult();
     }
 
     @Override
-    public Constancia save(Constancia entity) {
-        return null;
+    public void save(Constancia constancia) {
+        db.getManager().getTransaction().begin();
+        db.getManager().persist(constancia);
+        db.getManager().getTransaction().commit();
     }
 
     @Override
-    public Constancia update(Constancia entity) {
-        return null;
+    public void update(Constancia constancia) {
+        db.getManager().getTransaction().begin();
+        db.getManager().merge(constancia);
+        db.getManager().getTransaction().commit();
     }
 
     @Override

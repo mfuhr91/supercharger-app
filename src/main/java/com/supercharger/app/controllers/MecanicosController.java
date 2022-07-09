@@ -1,6 +1,7 @@
 package com.supercharger.app.controllers;
 
 import com.supercharger.app.dataholders.TurnoHolder;
+import com.supercharger.app.models.Especialidad;
 import com.supercharger.app.models.Mecanico;
 import com.supercharger.app.models.tablas.MecanicosTableModel;
 import com.supercharger.app.services.MecanicosService;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseButton;
 
 import java.net.URL;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,6 +35,18 @@ public class MecanicosController implements Initializable {
     private TableView<MecanicosTableModel> table;
 
     @FXML
+    private ComboBox espComboBox = new ComboBox();
+
+    @FXML
+    private TextField nombreForm;
+
+    @FXML
+    private TextField horarioEntrada;
+
+    @FXML
+    private TextField horarioSalida;
+
+    @FXML
     private Button volverButton;
 
     @FXML
@@ -48,10 +62,22 @@ public class MecanicosController implements Initializable {
     @FXML
     private void onNuevoMecanicoClick() {
         Utils.newWindow("Nuevo Mecánico", "mecanicos", "mecanicosForm");
+        volverButton.getScene().getWindow().hide();
     }
 
     @FXML
     private void onGuardarClick() {
+        Mecanico mec = new Mecanico();
+        mec.setNombre(this.nombreForm.getText());
+
+        Especialidad esp = (Especialidad) this.espComboBox.getValue();
+        mec.setEspecialidad(esp);
+        mec.setHoraEntrada(LocalTime.parse(this.horarioEntrada.getText()));
+        mec.setHoraSalida(LocalTime.parse(this.horarioSalida.getText()));
+
+        this.mecanicosServices.save(mec);
+        volverButton.getScene().getWindow().hide();
+        Utils.newWindow("Mecánicos", "mecanicos", "mecanicos");
     }
 
     @FXML
@@ -66,42 +92,46 @@ public class MecanicosController implements Initializable {
         publicTitle = title;
         publicNuevoButton = nuevoButton;
 
-        this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        this.nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        this.especialidad.setCellValueFactory(new PropertyValueFactory<>("especialidad"));
-        this.horarios.setCellValueFactory(new PropertyValueFactory<>("horarios"));
+        espComboBox.getItems().addAll(Especialidad.values());
 
-        List<MecanicosTableModel> mtmList = mecanicosServices.findAllMecanicos();
-        this.table.getItems().setAll(mtmList);
+        if (this.table != null) {
+            this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
+            this.nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            this.especialidad.setCellValueFactory(new PropertyValueFactory<>("especialidad"));
+            this.horarios.setCellValueFactory(new PropertyValueFactory<>("horarios"));
 
-        table.setRowFactory(tr -> {
-            TableRow<MecanicosTableModel> row = new TableRow<>();
-            row.setOnMouseClicked(e -> {
-                if (!row.isEmpty() && e.getButton() == MouseButton.PRIMARY
-                        && e.getClickCount() == 2) {
+            List<MecanicosTableModel> mtmList = mecanicosServices.findAllMecanicos();
+            this.table.getItems().setAll(mtmList);
 
-                    MecanicosTableModel clickedRow = row.getItem();
-                    System.out.println(clickedRow.toString());
+            table.setRowFactory(tr -> {
+                TableRow<MecanicosTableModel> row = new TableRow<>();
+                row.setOnMouseClicked(e -> {
+                    if (!row.isEmpty() && e.getButton() == MouseButton.PRIMARY
+                            && e.getClickCount() == 2) {
 
-                    String[] horarios = clickedRow.getHorarios().split(" - ");
+                        MecanicosTableModel clickedRow = row.getItem();
+                        System.out.println(clickedRow.toString());
 
-                    TurnoHolder turnoHolder = TurnoHolder.getInstance();
-                    Mecanico mecanico = new Mecanico();
-                    mecanico.setId(clickedRow.getId());
-                    mecanico.setNombre(clickedRow.getNombre());
-                    mecanico.setHoraEntrada(LocalTime.parse(horarios[0]));
-                    mecanico.setHoraSalida(LocalTime.parse(horarios[1]));
-                    turnoHolder.getTurno().setMecanico(mecanico);
-                    ((Node) (e.getSource())).getScene().getWindow().hide();
-                    if (fromTurnos) {
-                        Utils.newWindow("Nuevo Turno", "turnos", "turnosForm");
-                    } else {
-                        Utils.newWindow("Nueva Agenda", "agendas", "agendasForm");
+                        String[] horarios = clickedRow.getHorarios().split(" - ");
+
+                        TurnoHolder turnoHolder = TurnoHolder.getInstance();
+                        Mecanico mecanico = new Mecanico();
+                        mecanico.setId(clickedRow.getId());
+                        mecanico.setNombre(clickedRow.getNombre());
+                        mecanico.setHoraEntrada(LocalTime.parse(horarios[0]));
+                        mecanico.setHoraSalida(LocalTime.parse(horarios[1]));
+                        turnoHolder.getTurno().setMecanico(mecanico);
+                        ((Node) (e.getSource())).getScene().getWindow().hide();
+                        if (fromTurnos) {
+                            Utils.newWindow("Nuevo Turno", "turnos", "turnosForm");
+                        } else {
+                            Utils.newWindow("Nueva Agenda", "agendas", "agendasForm");
+                        }
+                        fromTurnos = false;
                     }
-                    fromTurnos = false;
-                }
+                });
+                return row;
             });
-            return row;
-        });
+        }
     }
 }

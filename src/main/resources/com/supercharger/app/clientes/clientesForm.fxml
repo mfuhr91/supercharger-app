@@ -26,37 +26,37 @@
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="100.0" text="Nombre:"/>
-            <TextField promptText="Nombre"/>
+            <TextField fx:id="nomForm" promptText="Nombre"/>
         </children>
     </HBox>
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="100.0" text="Apellido:"/>
-            <TextField promptText="Apellido"/>
+            <TextField fx:id="apeForm" promptText="Apellido"/>
         </children>
     </HBox>
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="100.0" text="Tipo Documento:"/>
-            <TextField promptText="Tipo Documento "/>
+            <TextField fx:id="tDocForm" promptText="Tipo Documento "/>
         </children>
     </HBox>
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="100.0" text="Nro Documento:"/>
-            <TextField promptText="Nro Documento"/>
+            <TextField fx:id="docForm" promptText="Nro Documento"/>
         </children>
     </HBox>
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="100.0" text="Teléfono:"/>
-            <TextField prefHeight="26.0" prefWidth="160.0" promptText="Teléfono"/>
+            <TextField fx:id="telForm" prefHeight="26.0" prefWidth="160.0" promptText="Teléfono"/>
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="100.0" text="Vehículo:"/>
-            <ComboBox prefHeight="26.0" prefWidth="160.0" promptText="Seleccionar vehículo"/>
+            <ComboBox fx:id="vehCombo" prefHeight="26.0" prefWidth="160.0" promptText="Seleccionar vehículo"/>
         </children>
     </HBox>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">

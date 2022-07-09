@@ -64,8 +64,8 @@ public class AgendasFormController implements Initializable {
                 LocalDateTime fechaTurno = LocalDateTime.of(fecha,hora);
                 turno.setFecha(fechaTurno);
                 turno.setMecanico(mecanico);
-
-                turno = this.turnosService.save(turno);
+                turno.setDisponible(true);
+                this.turnosService.save(turno);
 
                 Agenda agenda = new Agenda();
                 agenda.setTurno(turno);

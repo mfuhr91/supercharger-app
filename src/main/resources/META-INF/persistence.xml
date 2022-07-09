@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+             http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+
+    <persistence-unit name="persistence">
+
+        <class>com.supercharger.app.models.Turno</class>
+        <class>com.supercharger.app.models.Agenda</class>
+        <class>com.supercharger.app.models.Mecanico</class>
+        <class>com.supercharger.app.models.FichaMecanica</class>
+        <class>com.supercharger.app.models.Trabajo</class>
+        <class>com.supercharger.app.models.Constancia</class>
+        <class>com.supercharger.app.models.Vehiculo</class>
+        <class>com.supercharger.app.models.Cliente</class>
+        <class>com.supercharger.app.models.Seguro</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/supercharger_db?serverTimezone=America/Argentina/Ushuaia" />
+            <property name="javax.persistence.jdbc.user" value="admin" />
+            <property name="javax.persistence.jdbc.password" value="2744mfuhR" />
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="javax.persistence.sql-load-script-source"
+                      value="src/main/resources/data.sql" />
+        </properties>
+    </persistence-unit>
+
+</persistence>

@@ -9,6 +9,9 @@ module com.supercharger.app {
     requires slf4j.api;
     requires lombok;
     requires java.sql;
+    requires java.persistence;
+    requires org.hibernate.orm.core;
+
 
     exports com.supercharger.app;
     exports com.supercharger.app.controllers;
@@ -17,4 +20,5 @@ module com.supercharger.app {
     exports com.supercharger.app.dao;
     opens com.supercharger.app.controllers to javafx.fxml;
     exports com.supercharger.app.models.tablas;
+    opens com.supercharger.app.models;
 }

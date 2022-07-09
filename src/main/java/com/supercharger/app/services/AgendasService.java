@@ -26,13 +26,13 @@ public class AgendasService implements IGenericService<Agenda>{
     }
 
     @Override
-    public Agenda save(Agenda agenda) {
-        return this.agendasDao.save(agenda);
+    public void save(Agenda agenda) {
+        this.agendasDao.save(agenda);
     }
 
     @Override
-    public Agenda update(Agenda entity) {
-        return null;
+    public void update(Agenda entity) {
+
     }
 
     @Override

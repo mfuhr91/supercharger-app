@@ -212,13 +212,13 @@ public class TurnosService implements IGenericService<Turno> {
     }
 
     @Override
-    public Turno save(Turno turno) {
-        return this.turnosDao.save(turno);
+    public void save(Turno turno) {
+        this.turnosDao.save(turno);
     }
 
     @Override
-    public Turno update(Turno turno) {
-        return this.turnosDao.update(turno);
+    public void update(Turno turno) {
+        this.turnosDao.update(turno);
     }
 
     @Override

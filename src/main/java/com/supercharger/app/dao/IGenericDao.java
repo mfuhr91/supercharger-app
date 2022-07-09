@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface IGenericDao<T> {
 
-    List<T> findAll();
+    public List<T> findAll();
 
-    T findOne(final Long id);
+    public T findOne(final Long id);
 
-    T save(final T entity);
+    public void save(final T entity);
 
-    T update(final T entity);
+    public void update(final T entity);
 
     public void delete(final T entity);
 

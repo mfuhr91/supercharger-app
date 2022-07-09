@@ -1,33 +1,30 @@
 package com.supercharger.app.database;
 
-import java.sql.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 
 public class DBConnection {
 
-    private static final String connectionUrl = "jdbc:mysql://localhost:3306/supercharger_db?serverTimezone=America/Argentina/Ushuaia";
-    private static final String userName = System.getenv("DB_USER");
-    private static final String password = System.getenv("DB_PASS");
+    private static final String PERSISTENCE_UNIT_NAME = "persistence";
+    private static EntityManager manager;
 
-    private static Connection connection;
-
-    private DBConnection() {
-        try {
-            connection = DriverManager.getConnection(connectionUrl, userName, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Connection getConnection() throws SQLException {
-        return connection;
+    public EntityManager getManager() {
+        return manager;
     }
 
     private static final class InstanceHolder {
         private static final DBConnection instance = new DBConnection();
     }
 
-    public static DBConnection getInstance() throws SQLException {
+    public static DBConnection getInstance() {
         return InstanceHolder.instance;
+    }
+
+    public static void start(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        manager = factory.createEntityManager();
     }
 
 }

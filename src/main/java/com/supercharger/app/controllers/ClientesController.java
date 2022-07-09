@@ -2,8 +2,10 @@ package com.supercharger.app.controllers;
 
 import com.supercharger.app.dataholders.TurnoHolder;
 import com.supercharger.app.models.Cliente;
+import com.supercharger.app.models.Vehiculo;
 import com.supercharger.app.models.tablas.ClientesTableModel;
 import com.supercharger.app.services.ClientesService;
+import com.supercharger.app.services.VehiculosService;
 import com.supercharger.app.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +24,8 @@ public class ClientesController implements Initializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClientesController.class);
 
+    VehiculosService vehiculosService = new VehiculosService();
+
     @FXML
     private TableColumn<ClientesTableModel, Long> id;
     @FXML
@@ -36,6 +40,19 @@ public class ClientesController implements Initializable {
     private TableColumn<ClientesTableModel, String> vehiculo;
     @FXML
     private TableView<ClientesTableModel> table;
+
+    @FXML
+    private ComboBox vehCombo = new ComboBox();
+    @FXML
+    private TextField nomForm;
+    @FXML
+    private TextField apeForm;
+    @FXML
+    private TextField tDocForm;
+    @FXML
+    private TextField docForm;
+    @FXML
+    private TextField telForm;
 
     @FXML
     private Button volverButton;
@@ -62,6 +79,15 @@ public class ClientesController implements Initializable {
 
     @FXML
     private void onGuardarClick() {
+        Object vehiculo =  this.vehCombo.getValue();
+        Cliente cliente = new Cliente();
+        cliente.setNombre(this.nomForm.getText());
+        cliente.setApellido(this.apeForm.getText());
+        cliente.setTipoDoc(this.tDocForm.getText());
+        cliente.setNroDoc(this.docForm.getText());
+        cliente.setTelefono(Integer.parseInt(this.telForm.getText()));
+        cliente.setVehiculo(null);
+        volverButton.getScene().getWindow().hide();
     }
 
     @FXML
@@ -75,39 +101,45 @@ public class ClientesController implements Initializable {
 
         ClientesService clientesService = new ClientesService();
 
+        List<Vehiculo> vehs = this.vehiculosService.findAll();
+        vehs.forEach(veh -> {
+            this.vehCombo.getItems().add(veh.getId() + " " + veh.getMarca() + " " + veh.getModelo());
+        });
+
         publicTitle = title;
         publicNuevoButton = nuevoButton;
+        if (this.table != null) {
+            this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
+            this.nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            this.apellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+            this.documento.setCellValueFactory(new PropertyValueFactory<>("nroDoc"));
+            this.telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+            this.vehiculo.setCellValueFactory(new PropertyValueFactory<>("vehiculo"));
 
-        this.id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        this.nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        this.apellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        this.documento.setCellValueFactory(new PropertyValueFactory<>("nroDoc"));
-        this.telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        this.vehiculo.setCellValueFactory(new PropertyValueFactory<>("vehiculo"));
+            List<ClientesTableModel> ctmList = clientesService.findAllClientes();
+            this.table.getItems().setAll(ctmList);
 
-        List<ClientesTableModel> ctmList = clientesService.findAllClientes();
-        this.table.getItems().setAll(ctmList);
+            table.setRowFactory(tr -> {
+                TableRow<ClientesTableModel> row = new TableRow<>();
+                row.setOnMouseClicked(e -> {
+                    if (!row.isEmpty() && e.getButton() == MouseButton.PRIMARY
+                            && e.getClickCount() == 2) {
 
-        table.setRowFactory(tr -> {
-            TableRow<ClientesTableModel> row = new TableRow<>();
-            row.setOnMouseClicked(e -> {
-                if (!row.isEmpty() && e.getButton() == MouseButton.PRIMARY
-                        && e.getClickCount() == 2) {
+                        ClientesTableModel clickedRow = row.getItem();
+                        System.out.println(clickedRow.toString());
 
-                    ClientesTableModel clickedRow = row.getItem();
-                    System.out.println(clickedRow.toString());
-
-                    TurnoHolder turnoHolder = TurnoHolder.getInstance();
-                    Cliente cliente = new Cliente();
-                    cliente.setId(clickedRow.getId());
-                    cliente.setNombre(clickedRow.getNombre());
-                    cliente.setApellido(clickedRow.getApellido());
-                    turnoHolder.getTurno().setCliente(cliente);
-                    ((Node) (e.getSource())).getScene().getWindow().hide();
-                    Utils.newWindow("Nuevo Turno", "turnos", "turnosForm");
-                }
+                        TurnoHolder turnoHolder = TurnoHolder.getInstance();
+                        Cliente cliente = new Cliente();
+                        cliente.setId(clickedRow.getId());
+                        cliente.setNombre(clickedRow.getNombre());
+                        cliente.setApellido(clickedRow.getApellido());
+                        turnoHolder.getTurno().setCliente(cliente);
+                        ((Node) (e.getSource())).getScene().getWindow().hide();
+                        Utils.newWindow("Nuevo Turno", "turnos", "turnosForm");
+                    }
+                });
+                return row;
             });
-            return row;
-        });
+        }
     }
 }

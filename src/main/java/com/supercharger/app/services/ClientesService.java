@@ -45,13 +45,13 @@ public class ClientesService implements IGenericService<Cliente> {
     }
 
     @Override
-    public Cliente save(Cliente entity) {
-        return null;
+    public void save(Cliente entity) {
+
     }
 
     @Override
-    public Cliente update(Cliente entity) {
-        return null;
+    public void update(Cliente entity) {
+
     }
 
     @Override
