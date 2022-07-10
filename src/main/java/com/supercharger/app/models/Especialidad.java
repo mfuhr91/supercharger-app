@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -29,6 +31,15 @@ public enum Especialidad {
             }
         }
         return null;
+    }
+
+    public static List<String> getNombres() {
+        List<String> nombres = new ArrayList<>();
+        for (Especialidad especialidad : Especialidad.values()) {
+            nombres.add(especialidad.getNombre());
+
+        }
+        return nombres;
     }
 
 }

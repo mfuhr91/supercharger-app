@@ -34,13 +34,6 @@ public class AgendasDao implements IGenericDao<Agenda> {
     }
 
     @Override
-    public void update(Agenda agenda) {
-        db.getManager().getTransaction().begin();
-        db.getManager().merge(agenda);
-        db.getManager().getTransaction().commit();
-    }
-
-    @Override
     public void delete(Agenda agenda) {
 
     }

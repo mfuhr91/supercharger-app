@@ -25,22 +25,22 @@
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="70.0" text="Mes:" />
-         <ComboBox prefHeight="26.0" prefWidth="75.0" promptText="01" />
-         <ComboBox prefHeight="26.0" prefWidth="80.0" promptText="2022" />
+         <ComboBox onAction="#onMonthChange" fx:id="month" prefHeight="26.0" prefWidth="75.0" promptText="01" />
+         <ComboBox onAction="#onYearChange" fx:id="year" prefHeight="26.0" prefWidth="80.0" promptText="2022" />
         </children>
     </HBox>
    <HBox prefHeight="1.0" prefWidth="485.0">
       <children>
          <Label prefHeight="26.0" prefWidth="70.0" text="Seguro:" />
-         <ComboBox prefHeight="26.0" prefWidth="155.0" promptText="Seleccionar seguro" />
+         <ComboBox fx:id="seguros" onAction="#onSeguroChange" prefHeight="26.0" prefWidth="155.0" promptText="Seleccionar seguro" />
       </children>
    </HBox>
-    <TableView prefHeight="108.0" prefWidth="486.0">
+    <TableView fx:id="table" prefHeight="108.0" prefWidth="486.0">
         <columns>
-            <TableColumn prefWidth="138.0" text="Cliente" />
-            <TableColumn prefWidth="132.0" text="Mecánico" />
-            <TableColumn prefWidth="116.0" text="Especialidad" />
-            <TableColumn prefWidth="97.0" text="Fecha" />
+            <TableColumn fx:id="cliente" prefWidth="138.0" text="Cliente" />
+            <TableColumn fx:id="mecanico" prefWidth="132.0" text="Mecánico" />
+            <TableColumn fx:id="especialidad" prefWidth="116.0" text="Especialidad" />
+            <TableColumn fx:id="fecha" prefWidth="97.0" text="Fecha" />
         </columns>
     </TableView>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">

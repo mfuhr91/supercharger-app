@@ -37,13 +37,6 @@ public class MecanicosDao implements IGenericDao<Mecanico> {
     }
 
     @Override
-    public void update(Mecanico mecanico) {
-        db.getManager().getTransaction().begin();
-        db.getManager().merge(mecanico);
-        db.getManager().getTransaction().commit();
-    }
-
-    @Override
     public void delete(Mecanico mecanico) {
 
     }

@@ -13,10 +13,6 @@ import java.sql.SQLException;
 
 public class MainApplication extends Application {
 
-   /* private static EntityManager manager;
-
-    private static EntityManagerFactory factory;*/
-
     @Override
     public void start(Stage stage) {
         Utils.newWindow("","", "main");

@@ -48,21 +48,12 @@ public class TurnosDao implements IGenericDao<Turno> {
 
     @Override
     public Turno findOne(Long id) {
-
         String statement = "FROM Turno WHERE id=" + id;
-
         return (Turno) db.getManager().createQuery(statement).getSingleResult();
     }
 
     @Override
     public void save(Turno turno) {
-        db.getManager().getTransaction().begin();
-        db.getManager().persist(turno);
-        db.getManager().getTransaction().commit();
-    }
-
-    @Override
-    public void update(Turno turno) {
         db.getManager().getTransaction().begin();
         db.getManager().merge(turno);
         db.getManager().getTransaction().commit();

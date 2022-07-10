@@ -46,13 +46,6 @@ public class FichasDao implements IGenericDao<FichaMecanica> {
     }
 
     @Override
-    public void update(FichaMecanica ficha) {
-        db.getManager().getTransaction().begin();
-        db.getManager().merge(ficha);
-        db.getManager().getTransaction().commit();
-    }
-
-    @Override
     public void delete(FichaMecanica ficha) {
 
     }

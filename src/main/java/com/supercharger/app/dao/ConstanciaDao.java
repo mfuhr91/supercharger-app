@@ -34,13 +34,6 @@ public class ConstanciaDao implements IGenericDao<Constancia> {
     }
 
     @Override
-    public void update(Constancia constancia) {
-        db.getManager().getTransaction().begin();
-        db.getManager().merge(constancia);
-        db.getManager().getTransaction().commit();
-    }
-
-    @Override
     public void delete(Constancia entity) {
 
     }

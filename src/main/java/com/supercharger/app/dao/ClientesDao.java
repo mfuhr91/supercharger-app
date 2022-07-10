@@ -33,13 +33,6 @@ public class ClientesDao implements IGenericDao<Cliente> {
     }
 
     @Override
-    public void update(Cliente cliente) {
-        db.getManager().getTransaction().begin();
-        db.getManager().merge(cliente);
-        db.getManager().getTransaction().commit();
-    }
-
-    @Override
     public void delete(Cliente cliente) {
 
     }

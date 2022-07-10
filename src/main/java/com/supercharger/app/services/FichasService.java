@@ -20,7 +20,7 @@ public class FichasService implements IGenericService<FichaMecanica> {
 
     @Override
     public FichaMecanica findOne(Long id) {
-        return null;
+        return this.fichasDao.findOne(id);
     }
 
     public FichaMecanica findOneByTurnoId(Long id) {
@@ -30,11 +30,6 @@ public class FichasService implements IGenericService<FichaMecanica> {
     @Override
     public void save(FichaMecanica ficha) {
         this.fichasDao.save(ficha);
-    }
-
-    @Override
-    public void update(FichaMecanica ficha) {
-
     }
 
     @Override

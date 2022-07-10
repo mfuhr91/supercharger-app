@@ -49,11 +49,6 @@ public class MecanicosService implements IGenericService<Mecanico> {
     }
 
     @Override
-    public void update(Mecanico entity) {
-
-    }
-
-    @Override
     public void delete(Mecanico entity) {
 
     }

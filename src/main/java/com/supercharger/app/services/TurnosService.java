@@ -35,82 +35,6 @@ public class TurnosService implements IGenericService<Turno> {
         this.fichasService = new FichasService();
     }
 
-    public List<TurnosTableModel> getAllTurnos() {
-        List<Turno> list = turnosDao.findAll();
-        List<TurnosTableModel> ttmList = new ArrayList<>();
-
-        for (Turno turno : list) {
-
-            this.btnIngresar = new Button();
-            btnIngresar.setText("Ingresar");
-            btnIngresar.setId("btnIngresar-" + turno.getId());
-
-
-            this.btnFicha = new Button();
-            btnFicha.setText("Ver Ficha");
-            btnFicha.setId("btnFicha-" + turno.getId());
-
-            btnFicha.setOnAction(e -> {
-                String btnId = ((Button) e.getSource()).getId();
-                String[] arrBtnId = btnId.split("-");
-
-                System.out.println(btnId);
-
-
-                Turno turnoSelect = new Turno();
-                turnoSelect.setId(Long.parseLong(arrBtnId[1]));
-
-                TurnoHolder turnoHolder = TurnoHolder.getInstance();
-                turnoHolder.setTurno(turnoSelect);
-
-
-                Utils.newWindow("Ficha Mecánica" + turno.getId(), "fichamecanica", "fichamecanica");
-            });
-
-            btnIngresar.setOnAction(e -> {
-                String btnId = ((Button) e.getSource()).getId();
-
-                String[] arrBtnId = btnId.split("-");
-
-                Turno turnoUpdate = new Turno();
-                turnoUpdate.setAsistencia(LocalDateTime.now());
-                turnoUpdate.setId(Long.parseLong(arrBtnId[1]));
-
-                this.turnosDao.update(turnoUpdate);
-                turnoUpdate = this.turnosDao.findOne(Long.parseLong(arrBtnId[1]));
-
-                FichaMecanica ficha = new FichaMecanica();
-                ficha.setTurno(turnoUpdate);
-                ficha.setCliente(turnoUpdate.getCliente());
-                ficha.setMecanico(turnoUpdate.getMecanico());
-
-                this.fichasService.save(ficha);
-
-                ((Node) (e.getSource())).getScene().getWindow().hide();
-                Utils.newWindow("Turnos", "turnos", "turnos");
-            });
-
-            Cliente cliente = turno.getCliente();
-            boolean ingresado = turno.getAsistencia() != null;
-
-            String datosCliente;
-            String datosVehiculo;
-
-            datosCliente = cliente != null ? cliente.getNombre() + " " + cliente.getApellido() : "";
-            datosVehiculo = (cliente != null && cliente.getVehiculo() != null) ? cliente.getVehiculo().getMarca() + " - " + cliente.getVehiculo().getModelo() : "";
-
-            TurnosTableModel ttm = new TurnosTableModel();
-            ttm.setNombreCliente(datosCliente);
-            ttm.setNombreMecanico(turno.getMecanico().getNombre());
-            ttm.setIngresado(ingresado ? "SI" : "NO");
-            ttm.setVehiculo(datosVehiculo);
-            ttm.setOpciones(ingresado ? btnFicha : btnIngresar);
-
-            ttmList.add(ttm);
-        }
-        return ttmList;
-    }
-
     public List<TurnosTableModel> getAllTurnosByFecha(String fecha) {
         List<Turno> list = turnosDao.findAllNoDisponibleByFecha(fecha);
         List<TurnosTableModel> ttmList = new ArrayList<>();
@@ -148,12 +72,12 @@ public class TurnosService implements IGenericService<Turno> {
 
                 String[] arrBtnId = btnId.split("-");
 
-                Turno turnoUpdate = new Turno();
+                Turno turnoUpdate = this.turnosDao.findOne(Long.parseLong(arrBtnId[1]));
+                System.out.println(turnoUpdate);
+                System.out.println(arrBtnId[1]);
                 turnoUpdate.setAsistencia(LocalDateTime.now());
-                turnoUpdate.setId(Long.parseLong(arrBtnId[1]));
 
-                this.turnosDao.update(turnoUpdate);
-                turnoUpdate = this.turnosDao.findOne(Long.parseLong(arrBtnId[1]));
+                this.turnosDao.save(turnoUpdate);
 
                 FichaMecanica ficha = new FichaMecanica();
                 ficha.setTurno(turnoUpdate);
@@ -214,11 +138,6 @@ public class TurnosService implements IGenericService<Turno> {
     @Override
     public void save(Turno turno) {
         this.turnosDao.save(turno);
-    }
-
-    @Override
-    public void update(Turno turno) {
-        this.turnosDao.update(turno);
     }
 
     @Override

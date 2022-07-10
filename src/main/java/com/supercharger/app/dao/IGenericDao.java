@@ -10,8 +10,6 @@ public interface IGenericDao<T> {
 
     public void save(final T entity);
 
-    public void update(final T entity);
-
     public void delete(final T entity);
 
 }

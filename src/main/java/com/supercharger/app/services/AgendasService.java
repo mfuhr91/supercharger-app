@@ -30,10 +30,6 @@ public class AgendasService implements IGenericService<Agenda>{
         this.agendasDao.save(agenda);
     }
 
-    @Override
-    public void update(Agenda entity) {
-
-    }
 
     @Override
     public void delete(Agenda entity) {

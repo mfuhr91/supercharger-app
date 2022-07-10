@@ -17,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,7 +27,7 @@ public class ClientesController implements Initializable {
     private static final Logger LOG = LoggerFactory.getLogger(ClientesController.class);
 
     VehiculosService vehiculosService = new VehiculosService();
-
+    ClientesService clientesService = new ClientesService();
     @FXML
     private TableColumn<ClientesTableModel, Long> id;
     @FXML
@@ -48,7 +50,7 @@ public class ClientesController implements Initializable {
     @FXML
     private TextField apeForm;
     @FXML
-    private TextField tDocForm;
+    private ComboBox tDocCombo = new ComboBox();
     @FXML
     private TextField docForm;
     @FXML
@@ -79,15 +81,27 @@ public class ClientesController implements Initializable {
 
     @FXML
     private void onGuardarClick() {
-        Object vehiculo =  this.vehCombo.getValue();
+        String comboValue =  this.vehCombo.getValue().toString();
         Cliente cliente = new Cliente();
         cliente.setNombre(this.nomForm.getText());
         cliente.setApellido(this.apeForm.getText());
-        cliente.setTipoDoc(this.tDocForm.getText());
+        cliente.setTipoDoc(this.tDocCombo.getValue().toString());
         cliente.setNroDoc(this.docForm.getText());
-        cliente.setTelefono(Integer.parseInt(this.telForm.getText()));
-        cliente.setVehiculo(null);
+
+        if (this.telForm.getText() != "") {
+            cliente.setTelefono(Long.parseLong(this.telForm.getText()));
+        }
+
+        Vehiculo vehiculo = null;
+        if ( comboValue != "") {
+            vehiculo = this.vehiculosService.findOne(Long.parseLong(comboValue.split(" - ")[0]));
+        }
+        cliente.setVehiculo(vehiculo);
+
+        this.clientesService.save(cliente);
+
         volverButton.getScene().getWindow().hide();
+        Utils.newWindow("Clientes", "clientes", "clientes");
     }
 
     @FXML
@@ -103,8 +117,9 @@ public class ClientesController implements Initializable {
 
         List<Vehiculo> vehs = this.vehiculosService.findAll();
         vehs.forEach(veh -> {
-            this.vehCombo.getItems().add(veh.getId() + " " + veh.getMarca() + " " + veh.getModelo());
+            this.vehCombo.getItems().add(veh.getId() + " - " + veh.getMarca() + " " + veh.getModelo());
         });
+        this.tDocCombo.getItems().addAll(Arrays.asList("DNI","CEDULA","PASAPORTE"));
 
         publicTitle = title;
         publicNuevoButton = nuevoButton;
@@ -121,14 +136,16 @@ public class ClientesController implements Initializable {
 
             table.setRowFactory(tr -> {
                 TableRow<ClientesTableModel> row = new TableRow<>();
+                TurnoHolder turnoHolder = TurnoHolder.getInstance();
                 row.setOnMouseClicked(e -> {
-                    if (!row.isEmpty() && e.getButton() == MouseButton.PRIMARY
-                            && e.getClickCount() == 2) {
+                    if (!row.isEmpty()
+                            && e.getButton() == MouseButton.PRIMARY
+                            && e.getClickCount() == 2
+                            && turnoHolder.getTurno() != null) {
 
                         ClientesTableModel clickedRow = row.getItem();
                         System.out.println(clickedRow.toString());
 
-                        TurnoHolder turnoHolder = TurnoHolder.getInstance();
                         Cliente cliente = new Cliente();
                         cliente.setId(clickedRow.getId());
                         cliente.setNombre(clickedRow.getNombre());

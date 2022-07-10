@@ -5,7 +5,7 @@ import com.supercharger.app.models.Vehiculo;
 
 import java.util.List;
 
-public class VehiculosService implements IGenericService{
+public class VehiculosService implements IGenericService<Vehiculo> {
 
     VehiculosDao vehiculosDao = new VehiculosDao();
 
@@ -15,22 +15,17 @@ public class VehiculosService implements IGenericService{
     }
 
     @Override
-    public Object findOne(Long id) {
-        return null;
+    public Vehiculo findOne(Long id) {
+        return this.vehiculosDao.findOne(id);
     }
 
     @Override
-    public void save(Object entity) {
-
-    }
-
-    @Override
-    public void update(Object entity) {
+    public void save(Vehiculo entity) {
 
     }
 
     @Override
-    public void delete(Object entity) {
+    public void delete(Vehiculo entity) {
 
     }
 }

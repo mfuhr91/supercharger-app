@@ -59,7 +59,7 @@ public class TurnosFormController implements Initializable {
     private void onGuardarClick() {
 
         if ( turnoHolder.getTurno().getCliente() != null && turnoHolder.getTurno().getFecha() != null) {
-            this.turnosService.update(turnoHolder.getTurno());
+            this.turnosService.save(turnoHolder.getTurno());
            onVolverClick();
         }
 

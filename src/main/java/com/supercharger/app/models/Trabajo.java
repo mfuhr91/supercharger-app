@@ -3,6 +3,7 @@ package com.supercharger.app.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -18,5 +19,8 @@ public class Trabajo {
     private Long id;
     @Enumerated(value = EnumType.STRING)
     private Especialidad especialidad;
-    private Long tiempo;
+    private LocalTime tiempo;
+
+    @OneToOne()
+    private FichaMecanica fichaMecanica;
 }

@@ -26,21 +26,21 @@
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Fecha:" />
-            <DatePicker promptText="D/M/AAAA" />
+            <DatePicker onAction="#onFechaChange" fx:id="fecha" promptText="D/M/AAAA" />
         </children>
     </HBox>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Especialidad:" />
-            <ComboBox prefHeight="26.0" prefWidth="185.0" promptText="Seleccionar especialidad" />
+            <ComboBox onAction="#onEspChange" fx:id="espComboBox" prefHeight="26.0" prefWidth="185.0" promptText="Seleccionar especialidad" />
         </children>
     </HBox>
-    <TableView prefHeight="108.0" prefWidth="486.0">
+    <TableView fx:id="table" prefHeight="108.0" prefWidth="486.0">
         <columns>
-            <TableColumn prefWidth="105.0" text="Especialidad" />
-            <TableColumn prefWidth="152.0" text="Cliente" />
-            <TableColumn prefWidth="129.0" text="Mecánico" />
-            <TableColumn prefWidth="97.0" text="Tiempo" />
+            <TableColumn fx:id="especialidad" prefWidth="105.0" text="Especialidad" />
+            <TableColumn fx:id="cliente" prefWidth="152.0" text="Cliente" />
+            <TableColumn fx:id="mecanico" prefWidth="129.0" text="Mecánico" />
+            <TableColumn fx:id="tiempo" prefWidth="97.0" text="Tiempo" />
         </columns>
     </TableView>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">

@@ -70,7 +70,8 @@ public class MecanicosController implements Initializable {
         Mecanico mec = new Mecanico();
         mec.setNombre(this.nombreForm.getText());
 
-        Especialidad esp = (Especialidad) this.espComboBox.getValue();
+
+        Especialidad esp = Especialidad.getByNombre((String) this.espComboBox.getValue());
         mec.setEspecialidad(esp);
         mec.setHoraEntrada(LocalTime.parse(this.horarioEntrada.getText()));
         mec.setHoraSalida(LocalTime.parse(this.horarioSalida.getText()));
@@ -92,7 +93,7 @@ public class MecanicosController implements Initializable {
         publicTitle = title;
         publicNuevoButton = nuevoButton;
 
-        espComboBox.getItems().addAll(Especialidad.values());
+        espComboBox.getItems().addAll(Especialidad.getNombres());
 
         if (this.table != null) {
             this.id.setCellValueFactory(new PropertyValueFactory<>("id"));

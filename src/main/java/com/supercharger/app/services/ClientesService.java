@@ -45,13 +45,8 @@ public class ClientesService implements IGenericService<Cliente> {
     }
 
     @Override
-    public void save(Cliente entity) {
-
-    }
-
-    @Override
-    public void update(Cliente entity) {
-
+    public void save(Cliente cliente) {
+        this.clientesDao.save(cliente);
     }
 
     @Override

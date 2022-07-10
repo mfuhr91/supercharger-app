@@ -23,6 +23,8 @@
             <Font size="20.0"/>
         </font>
     </Label>
+
+    <TextField fx:id="id" visible="false"/>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="80.0" text="Fecha Turno:"/>

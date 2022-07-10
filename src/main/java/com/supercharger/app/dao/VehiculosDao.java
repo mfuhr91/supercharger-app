@@ -35,13 +35,6 @@ public class VehiculosDao implements IGenericDao<Vehiculo> {
     }
 
     @Override
-    public void update(Vehiculo veh) {
-        db.getManager().getTransaction().begin();
-        db.getManager().merge(veh);
-        db.getManager().getTransaction().commit();
-    }
-
-    @Override
     public void delete(Vehiculo entity) {
 
     }

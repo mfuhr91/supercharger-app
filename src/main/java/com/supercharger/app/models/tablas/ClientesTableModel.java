@@ -12,6 +12,6 @@ public class ClientesTableModel {
     private String nombre;
     private String apellido;
     private String nroDoc;
-    private int telefono;
+    private Long telefono;
     private String vehiculo;
 }

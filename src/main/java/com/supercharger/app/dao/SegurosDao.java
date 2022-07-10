@@ -13,8 +13,13 @@ public class SegurosDao implements IGenericDao<Seguro> {
         this.db = DBConnection.getInstance();
     }
 
+    public Seguro findByNombre(String nombre) {
+        String statement = "FROM Seguro WHERE nombre='" + nombre + "'";
+        return (Seguro) db.getManager().createQuery(statement).getSingleResult();
+    }
+
     @Override
-    public List findAll() {
+    public List<Seguro> findAll() {
         String statement = "FROM Seguro";
         return (List<Seguro>) db.getManager().createQuery(statement).getResultList();
 
@@ -31,11 +36,6 @@ public class SegurosDao implements IGenericDao<Seguro> {
 
     @Override
     public void save(Seguro entity) {
-
-    }
-
-    @Override
-    public void update(Seguro entity) {
 
     }
 

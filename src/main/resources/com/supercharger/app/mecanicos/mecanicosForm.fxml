@@ -27,12 +27,12 @@
             <TextField fx:id="nombreForm" prefHeight="26.0" prefWidth="185.0" promptText="Nombre" />
         </children>
     </HBox>
-   <HBox prefHeight="1.0" prefWidth="485.0">
-      <children>
-         <Label prefHeight="26.0" prefWidth="95.0" text="Especialidad:" />
-         <ComboBox fx:id="espComboBox" prefHeight="26.0" prefWidth="185.0" promptText="Seleccionar especialidad" />
-      </children>
-   </HBox>
+    <HBox prefHeight="1.0" prefWidth="485.0">
+        <children>
+            <Label prefHeight="26.0" prefWidth="95.0" text="Especialidad:"/>
+            <ComboBox fx:id="espComboBox" prefHeight="26.0" prefWidth="185.0" promptText="Seleccionar especialidad"/>
+        </children>
+    </HBox>
     <HBox prefHeight="26.0" prefWidth="483.0">
         <children>
             <Label prefHeight="25.0" prefWidth="95.0" text="Horario entrada:" />

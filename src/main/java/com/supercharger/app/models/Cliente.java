@@ -23,8 +23,8 @@ public class Cliente {
     private String tipoDoc;
     @Column(name = "nro_doc")
     private String nroDoc;
-    private int telefono;
+    private Long telefono;
 
-    @OneToOne
+    @ManyToOne()
     private Vehiculo vehiculo;
 }
