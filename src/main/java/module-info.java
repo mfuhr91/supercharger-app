@@ -11,6 +11,7 @@ module com.supercharger.app {
     requires java.sql;
     requires java.persistence;
     requires org.hibernate.orm.core;
+    requires itextpdf;
 
 
     exports com.supercharger.app;

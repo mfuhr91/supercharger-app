@@ -25,8 +25,8 @@
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
             <Label prefHeight="26.0" prefWidth="70.0" text="Mes:" />
-         <ComboBox onAction="#onMonthChange" fx:id="month" prefHeight="26.0" prefWidth="75.0" promptText="01" />
-         <ComboBox onAction="#onYearChange" fx:id="year" prefHeight="26.0" prefWidth="80.0" promptText="2022" />
+         <ComboBox fx:id="month" onAction="#onMonthChange" prefHeight="26.0" prefWidth="75.0" promptText="01" />
+         <ComboBox fx:id="year" onAction="#onYearChange" prefHeight="26.0" prefWidth="80.0" promptText="2022" />
         </children>
     </HBox>
    <HBox prefHeight="1.0" prefWidth="485.0">
@@ -43,6 +43,7 @@
             <TableColumn fx:id="fecha" prefWidth="97.0" text="Fecha" />
         </columns>
     </TableView>
+   <Label fx:id="textoOK" prefHeight="52.0" prefWidth="381.0" text="Informe generado correctamente en" textFill="#e44a4a" visible="false" wrapText="true" />
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
         <children>
             <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />

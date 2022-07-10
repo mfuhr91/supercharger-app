@@ -43,6 +43,7 @@
             <TableColumn fx:id="tiempo" prefWidth="97.0" text="Tiempo" />
         </columns>
     </TableView>
+    <Label fx:id="textoOK" prefHeight="52.0" prefWidth="381.0" text="Listado generado correctamente en" textFill="#e44a4a" visible="false" wrapText="true" />
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
         <children>
             <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />
