@@ -17,6 +17,7 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MecanicosController implements Initializable {
@@ -55,6 +56,9 @@ public class MecanicosController implements Initializable {
     @FXML
     private Label title;
 
+    @FXML
+    private Label formOK = new Label();
+
     public static Label publicTitle;
     public static Button publicNuevoButton;
     public static boolean fromTurnos;
@@ -67,6 +71,15 @@ public class MecanicosController implements Initializable {
 
     @FXML
     private void onGuardarClick() {
+
+        if( Objects.equals(this.espComboBox.getValue(), null) ||
+            Objects.equals(this.nombreForm.getText(), "") ||
+            Objects.equals(this.horarioEntrada.getText(), "") ||
+            Objects.equals(this.horarioSalida.getText(), "") ){
+            this.formOK.setVisible(true);
+            return;
+        }
+
         Mecanico mec = new Mecanico();
         mec.setNombre(this.nombreForm.getText());
 

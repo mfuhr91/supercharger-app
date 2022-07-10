@@ -57,6 +57,8 @@
             <ComboBox fx:id="vehCombo" prefHeight="26.0" prefWidth="160.0" promptText="Seleccionar vehículo" />
         </children>
     </HBox>
+    <Label fx:id="formOK" prefHeight="52.0" prefWidth="381.0" text="Debe ingresar nombre, apellido, tipo documento, nro documento, teléfono y vehículo!"
+           textFill="#e44a4a" visible="false" wrapText="true"/>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
         <children>
             <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />

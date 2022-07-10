@@ -10,46 +10,50 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="428.0" prefWidth="565.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supercharger.app.controllers.InformesController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="428.0" prefWidth="565.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.supercharger.app.controllers.InformesController">
     <padding>
-        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
     </padding>
     <Label contentDisplay="CENTER" text="Informe Mensual">
         <VBox.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="10.0"/>
         </VBox.margin>
         <font>
-            <Font size="20.0" />
+            <Font size="20.0"/>
         </font>
     </Label>
     <HBox prefHeight="1.0" prefWidth="485.0">
         <children>
-            <Label prefHeight="26.0" prefWidth="70.0" text="Mes:" />
-         <ComboBox fx:id="month" onAction="#onMonthChange" prefHeight="26.0" prefWidth="75.0" promptText="01" />
-         <ComboBox fx:id="year" onAction="#onYearChange" prefHeight="26.0" prefWidth="80.0" promptText="2022" />
+            <Label prefHeight="26.0" prefWidth="70.0" text="Mes:"/>
+            <ComboBox fx:id="month" onAction="#onMonthChange" prefHeight="26.0" prefWidth="75.0" promptText="01"/>
+            <ComboBox fx:id="year" onAction="#onYearChange" prefHeight="26.0" prefWidth="80.0" promptText="2022"/>
         </children>
     </HBox>
-   <HBox prefHeight="1.0" prefWidth="485.0">
-      <children>
-         <Label prefHeight="26.0" prefWidth="70.0" text="Seguro:" />
-         <ComboBox fx:id="seguros" onAction="#onSeguroChange" prefHeight="26.0" prefWidth="155.0" promptText="Seleccionar seguro" />
-      </children>
-   </HBox>
+    <HBox prefHeight="1.0" prefWidth="485.0">
+        <children>
+            <Label prefHeight="26.0" prefWidth="70.0" text="Seguro:"/>
+            <ComboBox fx:id="seguros" onAction="#onSeguroChange" prefHeight="26.0" prefWidth="155.0"
+                      promptText="Seleccionar seguro"/>
+        </children>
+    </HBox>
     <TableView fx:id="table" prefHeight="108.0" prefWidth="486.0">
         <columns>
-            <TableColumn fx:id="cliente" prefWidth="138.0" text="Cliente" />
-            <TableColumn fx:id="mecanico" prefWidth="132.0" text="Mecánico" />
-            <TableColumn fx:id="especialidad" prefWidth="116.0" text="Especialidad" />
-            <TableColumn fx:id="fecha" prefWidth="97.0" text="Fecha" />
+            <TableColumn fx:id="cliente" prefWidth="138.0" text="Cliente"/>
+            <TableColumn fx:id="mecanico" prefWidth="132.0" text="Mecánico"/>
+            <TableColumn fx:id="especialidad" prefWidth="116.0" text="Especialidad"/>
+            <TableColumn fx:id="fecha" prefWidth="97.0" text="Fecha"/>
         </columns>
     </TableView>
-   <Label fx:id="textoOK" prefHeight="52.0" prefWidth="381.0" text="Informe generado correctamente en" textFill="#e44a4a" visible="false" wrapText="true" />
+    <Label fx:id="textoOK" prefHeight="52.0" prefWidth="381.0" text="Informe generado correctamente en"
+           textFill="#e44a4a" visible="false" wrapText="true"/>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
         <children>
-            <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />
+            <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver"/>
             <Button alignment="CENTER" onAction="#onImprimirClick" prefWidth="70.0" styleClass="" text="Imprimir">
                 <HBox.margin>
-                    <Insets left="20.0" />
+                    <Insets left="20.0"/>
                 </HBox.margin>
             </Button>
         </children>

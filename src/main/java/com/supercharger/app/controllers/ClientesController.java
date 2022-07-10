@@ -17,10 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ClientesController implements Initializable {
 
@@ -65,6 +62,8 @@ public class ClientesController implements Initializable {
     @FXML
     private Label title;
 
+    @FXML
+    private Label formOK = new Label();
 
     public static Label publicTitle;
     public static Button publicNuevoButton;
@@ -81,6 +80,16 @@ public class ClientesController implements Initializable {
 
     @FXML
     private void onGuardarClick() {
+
+        if( Objects.equals(this.vehCombo.getValue(), null) ||
+            Objects.equals(this.tDocCombo.getValue(), null) ||
+            Objects.equals(this.nomForm.getText(), "") ||
+            Objects.equals(this.apeForm.getText(), "") ||
+            Objects.equals(this.docForm.getText(), "") ){
+            this.formOK.setVisible(true);
+            return;
+        }
+
         String comboValue =  this.vehCombo.getValue().toString();
         Cliente cliente = new Cliente();
         cliente.setNombre(this.nomForm.getText());

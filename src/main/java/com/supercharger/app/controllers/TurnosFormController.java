@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TurnosFormController implements Initializable {
@@ -54,9 +55,21 @@ public class TurnosFormController implements Initializable {
     @FXML
     private Button seleccionarMecanicoButton;
 
+    @FXML
+    private Label formOK = new Label();
+
 
     @FXML
     private void onGuardarClick() {
+
+        if( Objects.equals(this.cliente.getText(), "") ||
+            Objects.equals(this.mecanico.getText(), "") ||
+            this.turnoHolder.getTurno().getFecha() == null ){
+            this.formOK.setVisible(true);
+            return;
+        }
+
+        this.formOK.setVisible(false);
 
         if ( turnoHolder.getTurno().getCliente() != null && turnoHolder.getTurno().getFecha() != null) {
             this.turnosService.save(turnoHolder.getTurno());

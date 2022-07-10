@@ -62,6 +62,8 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </TableView>
+    <Label fx:id="formOK" prefHeight="52.0" prefWidth="381.0" text="Debe seleccionar un cliente, un mecanico y un horario!"
+           textFill="#e44a4a" visible="false" wrapText="true"/>
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
         <children>
             <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />
