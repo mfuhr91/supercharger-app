@@ -57,6 +57,9 @@ public class ClientesController implements Initializable {
     private Button volverButton;
 
     @FXML
+    private Button guardarButton;
+
+    @FXML
     private Button nuevoButton;
 
     @FXML
@@ -123,11 +126,13 @@ public class ClientesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ClientesService clientesService = new ClientesService();
+        if ( this.vehCombo == null ) {
+            List<Vehiculo> vehs = this.vehiculosService.findAll();
+            vehs.forEach(veh -> {
+                this.vehCombo.getItems().add(veh.getId() + " - " + veh.getMarca() + " " + veh.getModelo());
+            });
+        }
 
-        List<Vehiculo> vehs = this.vehiculosService.findAll();
-        vehs.forEach(veh -> {
-            this.vehCombo.getItems().add(veh.getId() + " - " + veh.getMarca() + " " + veh.getModelo());
-        });
         this.tDocCombo.getItems().addAll(Arrays.asList("DNI","CEDULA","PASAPORTE"));
 
         publicTitle = title;

@@ -62,7 +62,7 @@
     <HBox alignment="CENTER" prefHeight="1.0" prefWidth="485.0">
         <children>
             <Button fx:id="volverButton" onAction="#onVolverClick" prefWidth="70.0" styleClass="" text="Volver" />
-            <Button alignment="CENTER" onAction="#onGuardarClick" prefWidth="70.0" styleClass="" text="Guardar">
+            <Button fx:id="guardarButton" alignment="CENTER" onAction="#onGuardarClick" prefWidth="70.0" styleClass="" text="Guardar">
                 <HBox.margin>
                     <Insets left="20.0" />
                 </HBox.margin>
